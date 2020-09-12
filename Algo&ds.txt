@@ -1,0 +1,866 @@
+# This tutorial is learned form YouTube channel codebasics
+# here is link 
+https://www.youtube.com/watch?v=_t2GVaQasRY&list=PLeo1K3hjS3uu_n_a__MI_KktGTLYopZ12&ab_channel=codebasics
+
+1.BigO Notation:
+	Big O notation is a mathematical notation that describes the limiting behavior of a function when the argument tends towards a particular value or infinity.
+	eg: O(n), O(logn),O(n), O(n^2)
+
+	two types:
+		i) Time complexity
+		ii) Space complexity.
+
+BigO Notations Rules:
+	a) Keep fastes growing terms
+	b) Drop Constants
+
+i) Time complexity:
+-------------------
+	Eg:1 suppose a function time = a*n + b
+
+		fastest growing term is a*n 
+
+		Drop constant, here a 
+
+		so BigO notation is O(n)
+
+	Eg2: time = n
+	    BigO notation is O(1)
+
+	Eg3: time = a*n^2 + b
+		fastest growing terms is a*n^2
+		Drop constant n^2
+		BigO notation is O(n^2)
+
+ii) Space Complexity:
+---------------------
+Searching for a number in an array
+For BST, no.of iterations formula is k = n/ 2^k
+									 1 = n/ 2^k  (worst case if n = 1)
+									 n= 2^k 
+							Apply log base 2 on both sides
+									 log2^n = log2^(2^k)
+									 k = logn
+									 BigO notation is O(logn) where n is the of the array.
+
+2. Array:
+---------
+In Python, List follows dynamic array.
+
+suppose if you initialize new array, it will first intitalize with size = 10, when you try to insert 11th element, Now again it will choose another contagious memory and multiply current lenght of element with 2.
+
+So the new array length will be 10*2 + existing elements(10), i.e 30
+31st elemet follows the same 30*2 + existing elements(30), i.e 90 and so on.......
+
+Dynamic arrays extend based on Geometric progression.
+
+Advantage:
+----------
+	a) if you know the index, we can retirve value by O(1), irrrespective of size.
+
+Disadvantages:
+-------------
+	a) You have to allocate pre space, if its index overloaded, copy values to new array with higher size
+	b) Insertion at middle or start swaps the all the elements index positon.
+	c) to overcome this advantages, LinkedList has come.
+
+3.LinkedList:
+-----------
+
+ class Node:
+    def __init__(self, data = None, next= None):
+        self.data = data
+        self.next = next
+
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def insert_at_begining(self,data):
+        node = Node(data, self.head)
+        self.head = node
+
+    def insert_at_end(self,data):
+        if self.head is None:
+            node = Node(data, None)
+            self.head = node
+            return
+        itr = self.head
+        # itr.next will gives the last element, we can insert value here.
+        while itr.next:
+            itr = itr.next # This value becomes None, but we are checking itr.next value.
+
+        itr.next = Node(data,None)
+
+    def print(self):
+        if self.head is None:
+            print('Linked list is empty')
+            return
+
+        itr = self.head
+        mystr = ''
+        # itr checks the value until the end. By default last value is None and loop breaks.
+        while itr:
+            mystr += str(itr.data) + "-->"
+            itr = itr.next
+        print(mystr)
+        return
+
+    def get_length(self):
+        itr = self.head
+        count = 0
+        while itr:
+            count+=1
+            itr = itr.next
+        print(count)
+        return count
+
+    def remove_at(self, index):
+        if index < 0 or index >= self.get_length():
+            raise Exception('Index Not found')
+
+        if index == 0:
+            self.head = self.head.next
+        count = 0
+        itr = self.head
+        while itr:
+            if count == index-1:
+                itr.next = itr.next.next
+                break
+            itr = itr.next
+
+            count +=1
+
+    def insert_at(self, index, data):
+        if index < 0 or index >= self.get_length():
+            raise Exception('Index Not found')
+
+        if index ==0:
+            self.insert_at_begining(data)
+
+        itr = self.head
+        count = 0
+        while itr:
+            if count == index -1:
+                node = Node(data, itr.next)
+                itr.next = node
+                break
+            itr = itr.next
+            count +=1
+            
+    def insert_values(self,data):
+        for d in data:
+            self.insert_at_end(d)
+
+    def insert_after_value(self, data_after, data_to_insert):
+        itr = self.head
+
+        while itr:
+            if itr.data == data_after:
+                node = Node(data_to_insert,itr.next)
+                itr.next = node
+                break
+            itr = itr.next
+
+    def remove_by_value(self, data):
+        itr = self.head
+        while itr.next:
+            """
+            if we want to carry previous nodes then chek with itr.next in 
+            while loop
+            """
+            if itr.next.data == data:
+                itr.next = itr.next.next
+                break
+            itr = itr.next
+
+
+# Driver code
+ll = LinkedList()
+
+ll.insert_at_end(30)
+ll.insert_at_end(400)
+ll.insert_at_begining(10)
+ll.insert_at_begining(18)
+ll.insert_at_end(50)
+ll.print()
+ll.remove_at(3)
+ll.print()
+ll.insert_at(3,"Hello")
+ll.print()
+ll.get_length()
+
+
+4. HashTable:
+-------------
+
+In python we call it as Dictionary,
+In Java there are HashMap and LinkedHashMap
+In C++ std::map.
+
+In Dictionary, Look up by key is O(1)
+Insertion/Deletion is O(1)
+
+The key value which we provide is getting hashed based on ASCII character value, and stored as index in a list, So look up is easy irrespective of length of the dictionary.
+
+Note: This HashTable is just to know how dict implemented in python.
+
+class HashTable:
+    def __init__(self):
+        self.max = 100
+        self.arr = [None for i in range(self.max)]
+
+    def get_hash(self,key):
+        c = 0
+        for char in key:
+            c+= ord(char)
+
+        print(c% self.max)
+
+        return c % self.max
+
+    def __setitem__(self, key,value):
+        h = self.get_hash(key)
+        self.arr[h] = value
+
+    def __getitem__(self,key):
+        h = self.get_hash(key)
+        print('has value',h)
+        return self.arr[h]
+
+    def __delitem__(self,key):
+        h = self.get_hash(key)
+        del self.arr[h]
+
+# Driver code
+t = HashTable()
+t['one'] = 10
+print(t['one'])
+del t['one']
+print(t['one'])
+
+a = [1,2,3,4,5,6]
+sum(a) # it gives sum of all the elements in the list.
+sum(a[1:6]) # it will sum only from 1st index to upto 6th index (both including)
+
+If we know index or key then retirving value for that key is more fast O(1), if we use dictionary.
+
+Handling collisons with Chaining and Probing:
+Chaining: store key values in a list of tuples in the same index.(recommended)
+Probing: Linearly searching for empty index in a list and storing in that.
+
+Handling collisons through chaining:
+
+class HashTable:
+    def __init__(self):
+        self.max = 100
+        self.arr = [[] for i in range(self.max)]
+
+    def get_hash(self,key):
+        c = 0
+        for char in key:
+            c+= ord(char)
+
+        return c % self.max  # Modulus operator returns remainder, used as index.
+
+    def __setitem__(self,key,value):
+        h = self.get_hash(key)
+        found = False
+        for idx, element in enumerate(self.arr[h]):
+            if len(element) ==2 and element[0] == key:
+                found = True
+                self.arr[h][idx] = (key,value)
+        if not found:
+            self.arr[h].append((key,value))
+
+    def __getitem__(self,key):
+        h = self.get_hash(key)
+        # print(self.arr[h])
+        for kv in self.arr[h]:
+            if kv[0] == key:
+                return kv[1]
+
+    def __delitem__(self,key):
+        h = self.get_hash(key)
+        for idx, kv in enumerate(self.arr[h]):
+            if kv[0] == key:
+                print("deleting index", key)
+                del self.arr[h][idx]
+
+
+# Driver code
+t = HashTable()
+
+t["march 6"] = 310
+t["march 7"] = 420
+t["march 8"] = 67
+t["march 17"] = 63457
+print(t['march 6'])
+del t['march 6']
+
+
+5. Stack:
+---------
+Stack is a datastructure that store or preserve the order of sequence which we do.
+
+Basically it follows FIFO.
+
+Eg:
+1. Browser back button
+2. Ctrl + Z in any editor.
+3. function calling in any programming language
+4. open/closed brackets checking by compiler.
+
+In python we can declare Stack by using list, collections.dequeue, queue.LifoQueue.
+In Java we can use Stack or Deque
+In C++ std::stack.
+
+using list:
+we can use list as stack in python, but its not efficient due to dynamic nature of the array.
+s.pop() will give last element in the list, and also remove element from list.
+
+using collections.deque:
+
+from collections import deque
+class Stack:
+    def __init__(self):
+        self.container = deque()
+
+    def push(self,val):
+        return self.container.append(val)
+
+    def pop(self):
+        return self.container.pop()
+
+    def peek(self):
+        try:
+            return self.container[-1]
+        except IndexError:
+            return ''
+
+    def is_empty(self):
+        return len(self.container) ==0
+
+    def size(self):
+        return len(self.container)
+
+    def print(self):
+        return print(self.container)
+
+    def reverse(self,val):
+        self.container.append(val) 
+        return self.pop()[::-1]
+
+    def is_balanced(self,str_val):
+    """
+    This logic is written by me
+    """
+
+        for char in str_val:
+
+            if char == "{"  or char == '(' or char == '[':
+                self.container.append(char)
+
+            if char == ")":
+                if self.peek() == "(":
+                    self.container.pop()
+                else:
+                    return False
+
+            if char == "}":
+                if self.peek() == "{":
+                    self.container.pop()
+                else:
+                    return False
+
+            if char == ']':
+                if self.peek() == '[':
+                    self.container.pop()
+                else:
+                    return False
+                    
+        return len(self.container) ==0
+
+    def clear(self):
+        return self.container.clear()
+
+stack = Stack()
+
+print(stack.is_balanced("{a+b}"))
+stack.clear()
+print(stack.is_balanced("))((a+b}{"))
+stack.clear()
+print(stack.is_balanced("((a+b))"))
+stack.clear()
+print(stack.is_balanced("))"))
+stack.clear()
+print(stack.is_balanced("[a+b]*(x+2y)*{gg+kk}"))
+
+Method2: (by author)
+def is_match(ch1, ch2):
+    match_dict = {
+        ')': '(',
+        ']': '[',
+        '}': '{'
+    }
+    return match_dict[ch1] == ch2
+def is_balanced(s):
+    stack = Stack()
+    for ch in s:
+        if ch=='(' or ch=='{' or ch == '[':
+            stack.push(ch)
+        if ch==')' or ch=='}' or ch == ']':
+            if stack.size()==0:
+                return False
+            if not is_match(ch,stack.pop()):
+                return False
+
+    return stack.size()==0
+
+
+6. Queue:
+---------
+Queue is a data structure that follows FIFO
+
+In python, list, collections.deque, queue.LifoQueue
+In Java we implement LinkedList
+C++ std::queue
+
+from collections import deque
+import time
+import threading
+
+class Queue:
+    
+    def __init__(self):
+        self.buffer = deque()
+    
+    def enqueue(self, val):
+
+        self.buffer.appendleft(val)
+        
+    def dequeue(self):
+        if len(self.buffer) ==0:
+            print("Queue is Empty")
+            return 
+        return self.buffer.pop()
+    
+    def is_empty(self):
+        return len(self.buffer)==0
+    
+    def size(self):
+        return len(self.buffer)
+
+q = Queue()
+
+def producers(arr):
+    for a in arr:
+        print("Placing order for order",a)
+        q.enqueue(a)
+        time.sleep(0.2)
+
+
+def consumers():
+    time.sleep(1)
+    while True:
+        order = q.dequeue()
+        if order is None:
+            break
+        print("Now serving order", order)
+
+arr = ['pizza','samosa','pasta','biryani','burger']
+threading.Thread(target = producers, args = (arr,)).start()
+threading.Thread(target = consumers).start()
+print("Done")
+
+Note:
+Stack and Queue are implemented in the same way,But use cases is different.
+
+7. Tree():
+---------
+Tree data structure is used to represent hierarchical data such as organization hierachy, product categories, geographic locations
+
+class TreeNode:
+    def __init__(self,data):
+        self.data = data
+        self.children = [] # This children is the instance to next class
+        self.parent = None
+
+    def add_child(self, child):
+        self.children.append(child) # Adding new children object.
+        child.parent = self  # Assigning parent to children object.
+        # we CANNOT add like this
+        # child.parent = self.children.append(child)
+
+    def print_tree(self):
+        space = "   " * self.get_level()
+        print(space + "|--"+ self.data)
+        if self.children:
+            for child in self.children:
+                child.print_tree()
+
+    def get_level(self):
+        level = 0
+        p = self.parent # parent object will give the levels or hirarchey.
+        while p:
+            level +=1
+            p = p.parent
+        return level
+
+def build_product_tree():
+    root = TreeNode("Electronics")
+
+    laptop = TreeNode("Laptop") 
+    asus = TreeNode('Asus')
+    asus.add_child(TreeNode("Vivobooks14"))
+ 
+    laptop.add_child(asus)
+    laptop.add_child(TreeNode('HP'))
+    laptop.add_child(TreeNode('Microsoft'))
+
+    mobile = TreeNode("Mobile")
+
+    mobile.add_child(TreeNode('Xioami'))
+    mobile.add_child(TreeNode('Oppo'))
+    mobile.add_child(TreeNode('Samsung'))
+    mobile.add_child(TreeNode('Iphone'))
+
+    tv = TreeNode("Television")
+
+    tv.add_child(TreeNode('Sony'))
+    tv.add_child(TreeNode('MI'))
+    tv.add_child(TreeNode('OnePlus'))
+
+    root.add_child(laptop)
+    root.add_child(tv)
+    root.add_child(mobile)
+
+    return root
+
+
+if __name__ == '__main__':
+    root = build_product_tree()
+    root.print_tree()
+
+-----------------------------------
+Excercise 1:
+-------------
+class TreeNode:
+    def __init__(self,name,designition=None):
+        self.name = name
+        self.designition = designition
+        self.children = [] # This children is the instance to next class
+        self.parent = None
+
+    def add_child(self, child):
+        self.children.append(child) # Adding new children object.
+        child.parent = self  # Assigning parent to children object.
+        # we CANNOT add like this
+        # child.parent = self.children.append(child)
+
+    def print_tree(self,typ=None):
+        space = "   " * self.get_level()
+        if typ == "name":
+            print(space + "|--"+ self.name)
+        elif typ == "designition":
+            print(space + "|--"+ self.designition)
+        else:
+            print(space + "|--" + self.name + " (" + self.designition+ ")")
+        
+        if self.children:
+            for child in self.children:
+                child.print_tree(typ=typ)
+
+    def get_level(self):
+        level = 0
+        p = self.parent # parent object will give the levels or hirarchey.
+        while p:
+            level +=1
+            p = p.parent
+        return level
+
+def build_product_tree():
+    root = TreeNode("Nilpul","CEO")
+
+    cto = TreeNode("Chinmay","CTO")
+    ih = TreeNode("Vishwa",'Infrastructure Head')
+    ih.add_child(TreeNode("Dhaval",'Cloud Manager'))
+    ih.add_child(TreeNode("Abhijit",'App Manager'))
+    cto.add_child(ih)
+
+    cto.add_child(TreeNode("Aamir","Application Head"))
+
+    hr = TreeNode("Gels",'HR Head')
+    hr.add_child(TreeNode('Peter','Recruitment Manager'))
+    hr.add_child(TreeNode('waqas','Policy Manager'))
+
+    root.add_child(cto)
+    root.add_child(hr)
+
+    return root
+
+
+if __name__ == '__main__':
+    root = build_product_tree()
+    root.print_tree(typ= "designition")
+    root.print_tree(typ= "name")
+    root.print_tree()
+
+8. Binary Search Tree (BST): (Cannot store duplicates)
+---------------------------
+
+To remove duplicates in the list we use set,
+but set is linear data type which will take O(n) to traversal.
+So we use Binary Tree Data structure.
+Search complexity of BST is O(logn)
+
+one of the ways to implement set is Binary Tree
+
+Maximum no.of nodes in a tree with height h = 2^0 + 2^1 + 2^2 +...+ 2^h
+											i.e ==> (2^(no.of levels)) -1
+Max no.of nodes at level i = 2^i
+
+
+Basic Tree properties:
+
+	a) Left side node value must be less than main node
+	b) Right side node value must be greater than main node
+	c) main node must be atmost two values only.
+	d) all the elements should be uniques.
+
+
+Two approaches for searching BST:
+
+	i) Breadth First Search (Level Order Traversal) ---> O(n)
+	ii) Depth first Search --> O(n)
+
+How to pick one?
+Depth First Traversals are typically recursive and recursive code requires function call overheads.
+
+
+BFS starts visiting nodes from root
+DFS starts visiting from leaves
+
+I) Breadth first search:
+------------------------
+
+prints Ascending order, Level0--> Level1 --> Level2
+
+II) Depth first search:
+------------------------
+(a) Inorder (Left, Root, Right) 
+(b) Preorder (Root, Left, Right) 
+(c) Postorder (Left, Right, Root) descending order Level3,2,1,..level0
+
+class BinarySearchTreeNode:
+    def __init__(self,data):
+        self.data = data
+        self.right = None
+        self.left = None
+
+
+    def add_child(self,data):
+        if self.data == None: # if main node is empty add directly
+            self.data = data
+
+        if data < self.data: # Add data in the left subtree
+            if self.left:
+                self.left.add_child(data) # adding left side
+            else: # left subtree is None add directly
+                self.left = BinarySearchTreeNode(data)
+
+        if data > self.data: # Add data in the right subtree
+            if self.right:
+                self.right.add_child(data)
+            else:
+                self.right = BinarySearchTreeNode(data)
+
+    def in_order_traversal(self):
+        """
+        In order traversal means traversing from
+        left to main node and then right node.
+        precisely, asending order.
+        """
+        elements = []
+        # visit the left tree first
+        if self.left:
+            # recursively traversing each node in left side.
+            elements += self.left.in_order_traversal()
+
+
+        # visit the main node next
+        elements.append(self.data)
+
+        # visit the right node next
+        if self.right:
+            # recursively traversing each node in right side.
+            elements += self.right.in_order_traversal()
+
+        return elements
+
+    def post_order_traversal(self):
+    	elements = []
+
+    	if self.left:
+    		elements += self.left.post_order_traversal()
+
+    	if self.right:
+    		elements += self.right.post_order_traversal()
+
+    	elements.append(self.data)
+
+    	return elements
+
+    def pre_order_traversal(self):
+    	elements = [self.data]
+
+    	if self.left:
+    		elements += self.left.pre_order_traversal()
+
+    	if self.right:
+    		elements += self.right.pre_order_traversal()
+
+    	return elements
+
+
+    def search(self,val):
+        if self.data == val:
+            return True
+
+        if val < self.data:
+            if self.left:
+                return self.left.search(val)
+            else:
+                return False
+        if val > self.data:
+            if self.right:
+                return self.right.search(val)
+            else:
+                return False
+
+
+def build_tree(elements):
+    root = BinarySearchTreeNode(elements[0])
+
+    for i in range(1,len(elements)):
+        root.add_child(elements[i])
+
+    return root
+
+if __name__ == '__main__':
+    elements = [17,2,3,4,1,20,50,6,7,8,9]
+    numbers_tree = build_tree(elements)
+
+    # out put have two utilities:
+    # Implement tree and Sort the elements in the list
+    # Set like implementation, No duplicates allowed.
+    print(numbers_tree.in_order_traversal())
+
+    print(numbers_tree.search(2))
+
+Deleting:
+---------
+i) Deleting node with no child
+ii) Deleting node with one child
+iii) deleting node with two child
+
+
+i) Deleting node with no child:
+-------------------------------
+Its called leaf node, we can directly delete the leaf.
+
+ii) Deleting node with one child:
+---------------------------------
+You can just remove the parent node, and move leaf node to the deleted value.
+
+iii) Deleting node with two children: (tricky)
+----------------------------------------------
+After deleting the parent node, you have to rebalance the tree that basic tree properties should hold true.
+
+	Approach1:
+	---------
+	You can copy MINIMUM from right subtree, from that node to the deleted value, and remove duplicates
+
+	Approach2:
+	---------
+	You can copy MAXIMIUM from left subtree,from that node to the deleted value, and remove duplicates
+
+
+def delete(self, val):
+        if val < self.data:
+            if self.left:
+            	"""
+                deleting that node value and moving/assigning
+                one node backward
+                to entire subtree OR 
+                deleting duplicate values. 
+                """
+                self.left = self.left.delete(val)
+
+        elif val > self.data:
+            if self.right:
+                self.right = self.right.delete(val)
+        else:
+            if self.left is None and self.right is None:
+                return None
+
+            elif self.left is None:
+                # if left subtree is none, returning right subtree
+                # for for deleting the node
+                return self.right
+
+            elif self.right is None:
+                # if right subtree is none, returning left subtree
+                # for the deleting the node
+                return self.left
+
+            """
+            finding minimum value from the right
+            sub tree and assign that value to the
+            data and remove that duplicate value
+            """
+            min_val = self.right.find_min()
+            # min_val = self.left.find_max()
+            self.data = min_val
+            self.right = self.right.delete(min_val)
+
+        """
+        If you ruturn self.left only left subtee is returned
+        If you return self.right only right subtree is returned.
+        If you reutn self entire node is returned.
+        """
+        return self
+
+
+
+9. Graph: (complex data structures)
+--------
+Graph is a pair-wise relationship between a set of objects. 
+two types:
+
+I) directed:
+------------
+Have a pair of ordered vertices (u,v) i.e (u,v) != (v,u)
+
+II) Un-directed:
+----------------
+Have a pair of un-ordered veritces (u,v) == (v,u)
+
+Applications of Graph:
+----------------------
+1. social Network Facebook, LinkedIn..etc
+2. city road network, Google maps.
+directed graph example, Flight Routes between Mumbai to USA.
+google map find shortest path and all possible ways between two points
+Amazon product recommendation
+
+
+Notes:
+
+1. Graph and trees are Recursive data structures.
+
+
+
+
+
