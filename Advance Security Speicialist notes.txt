@@ -1,0 +1,107 @@
+1. AWS Firewall Manger:
+	pre-requisites:
+	1. Account should be part of AWS Organization
+	2. Setup Firewall manager adminstrator account
+	3. Enable Config in all the Organization memeber accounts
+
+2. S3 object lock
+	S3 object lock with Compliance retention mode is used to NO alteration/deletion possible for ANY user
+	S3 object lock with Governance retention mode is used to IAM permission users can able to alter the object
+	S3 object lock with LegalHold  is used to lock object with no expiration date.
+
+3. Global services like
+	Cloudfront
+	IAM
+	STS
+	creates their cloud trail logs in us-east-1 region.
+
+4. S3 Glacier Instant Retrieval VS Flexible Retrieval
+
+5. Rotating RDS Secrets periodically 
+	Configure automatic rotation for every 30 days in AWS Secret manager and set up aws secret manager to create a new AWS Lambda function responsible for handling the secrets
+
+6. OUs and SCP in an organization
+
+7. Suppose using RAM, the VPC private subnet (Parent account) is being shared with other accounts (Child1 and Child2),
+	1. the accounts do not have permissions to view, modify or delete the resources created in other accounts.
+	2. EC2 instance in each account can access each other using Private IP (Security Benefit)
+
+8. Amazon Macie flexibility to configure a job to deal with SENSITIVE data on S3
+
+9. AWS Security Hub leverages AWS COnfig to retrieve configuration data for AWS Resources.
+
+test1:
+======
+
+1. we can configure the key policy for the CMK, use kms:viaService to check if the request come from particular service like ec2.us-west2.amazonaws.com
+	kms:GrantIsForAWSResource --> only integrated aws services can create grants
+	kms:KeyOrigin --> control create key access based on the origin
+				  --> valid values: AWS_KMS, AWS_CLOUDHSM, and EXTERNAL
+	kms:GranteePrincipal --> control access to the CreateGrant operation
+
+2. ARN or alias of the key won't change even after an automatic rotation
+	a) Users cannot modify the frequency. aws will take care of key rotation automatically every year.
+	b) each newly rotated version will increase the cost by $1/month
+	c) During key rotation, the data keys that CMK generated are not rotated, which means it cannot mitigate the effect of compromised date key
+
+3. You can create seperate log group and send all logs from the EC2 instance to that group, and you can restrict access to CloudWatch log groups using IAM policies
+
+4. VPC endpoint --> communication between your VPC (within that) and AWS KMS is conducted entirely within the AWS network
+	AWS VPN --> connecting on-premise environments and AWS
+	VPC Peering --> communication between several VPCs
+
+5. AWS Trusted Advisor --> assists on how you can improve security on aws account but not protect
+					       a) Optimize AWS Infrastructure
+					   	   b) Increase Security and Performance
+					   	   c) Reduce your overall cost
+					   	   d) monitor service limits
+	AWS WAF --> protect against common web exploits SQL injection and cross-site scripting
+	AWS Inspector --> used to scan EC2 instances for vulnerabilities
+	AWS Config --> config can be used to check the configuration changes
+	AWS GuardDuty --> Threat detection service and monitor malicious activity
+	AWS Macie --> data security and data privacy to *sentisitve* data in AWS
+	AWS Artifact --> PCI DSS report, SOC compliance report, ISO certifications
+
+
+
+6. AWS Config --> provides you the detail list of resources defined in your AWS network
+
+7. for intrusion detection system in VPC --> use custom solution from Market Place
+
+8. If the file size is larger than 4K, envelope encryption must be used and for this plain text data key is used.
+
+9. You can get notified when KMS CMK key is rotated using eventbridge rule 
+
+10. for AWS Managed/Owned --> key rotation automatically managed by AWS
+	for CMK --> you can enable/disable the automatic rotation bby AWS
+	for asymmetric KMS keys, KMS keys in custom key stores and KMS keys with imported key material 
+	you need manual rotation, usually through key alias
+
+11. Users should check if the IAM role can use the CMK in both the IAM policy and key policy. at least there should be allow in either policy, and ther should not be any explicit deny.
+
+
+12. AWS provides an Amazon encryption client which is embedded into AWS SDK and CLI
+
+13. SAML and Role access related info doesn't present in the IAM Credential report
+
+14. CloudTrail event log files are encrypted by defualt (S3-SSE)
+
+
+15. Not recommended to do security audit when autoscaling is happens
+
+16. SCP shouldnot be added to the root account, it contain default SCP that allows everything and applies to all OUs
+
+17. AWS Config (custom) rule can invoke the lambda function directly. and can be triggered periodically every 1/36/12/24 hours
+
+18. Data stored on Amazon DynamoDB is encrypted at rest by defualt
+
+19. AWS Config applies remediation using AWS Systems manager Automation documents
+
+20. cognito pool for unauthenticated guest access
+
+21***. You cannot enable automatic key rotation for the CMK with imported key material
+
+22***. AWS KMS cannot rotate keys on monthly basis
+
+23. 
+

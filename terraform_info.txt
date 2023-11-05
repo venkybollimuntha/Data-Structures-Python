@@ -1,0 +1,129 @@
+1. By default terraform perform the Immutable deployment (i.e it won't change/modify the existing resource, instead it will first destroy that resource then create a new resource in that place.)
+  (Delete first and create next)
+2. if we want (Create first and delete next) use Life cycle rules in resource block
+
+	life cycle rules:
+	-----------------
+
+	lifecycle {
+
+	create_before_destroy = true # 
+	prevent_destroy = true # 
+	ignore_changes = [tags, ami, etc...] # Ignore changes to Resource attributes.
+	}
+
+3. terrraform console
+   its like idle to play with the output.
+
+4. count is used for list of maps [{}]
+
+5. for_each is used for map of mpas {{}}
+
+6 maps:
+--------
+	my_map = {
+	key1 = "value1"
+	key2 = "value2"
+	}
+
+	maps are more flexible and allow for dynamically generated keys and values.
+
+7. object:
+-----------
+
+	my_object = {
+
+	attribute1 = "value1"
+	attribute2 = "value2"
+
+	}
+
+	Objects are commonly used to represent the attributes of resources in Terraform,
+	and have a fixed structure with predefined attribute names.
+
+
+8. List:
+---------
+	my_list = ["item1", "item2", 42, true]
+
+	ordered, indexed, allow duplicates
+
+
+9 Set:
+------
+	 my_set = toset([1,2,3])
+
+	 un-ordered, un-indexed, no-duplicates
+
+10. Tuple:
+----------
+	my_tuple = ("item1","item2", 42, true)
+
+	ordered, indexed, allow duplicates
+	Tuples are typically used when you need a fixed, ordered structure with specific data types for each element.
+
+Note:
+Use tuples when you need a structured, ordered collection with known data types, 
+and use lists when you need flexibility in the data types of the elements.
+
+11. Any:
+--------
+ A generic data type that can hold values of any type
+
+ variable "my_any" { default = null }
+
+ 12. set of strings:
+ -------------------
+
+ variable "my_set_of_strings" {
+  default = toset(["value1", "value2", "value3"])
+}
+
+13. list of maps:
+-----------------
+variable "my_list_of_maps" {
+  default = [
+    { key1 = "value1", key2 = "value2" },
+    { key1 = "value3", key2 = "value4" }
+  ]
+}
+
+
+14. Meta-arguments in terraform:
+-------------------------------
+	1) depends_on
+	2) count
+	3) for_each
+	4) lifecycle
+	5) ignore_changes
+	6) providers
+
+14.2 count:
+-----------
+The count meta argument allows you to create multiple instances of a resource based on a specific count, typically an integer
+
+eg: 
+     resource "aws_instance" "example" {
+		  count = 3  # Create 3 instances
+
+		  ami           = "ami-12345678"
+		  instance_type = "t2.micro"
+		  tags = {
+		    Name = "example-instance-${count.index + 1}"
+		  }
+	}
+
+14.3 for_each:
+--------------
+Used to create multiple instances of a resource based on  map or set of strings
+
+eg: 
+	 resource "aws_instance" "example" {
+		  for_each = toset(["instance1", "instance2", "instance3"])
+
+		  ami           = "ami-12345678"
+		  instance_type = "t2.micro"
+		  tags = {
+		    Name = "example-instance-${each.value}"
+		  }
+	}

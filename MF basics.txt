@@ -1,0 +1,152 @@
+Basics of Mutual Funds
+-------------------------
+
+Assets Under Management (AUM) Company
+Total market value of the investments that a person or entity manages on behalf of clients
+
+
+NAV? (Net Asset Value) Total sum of money diveded by no.of investors gives this 
+Expense Ratio? (Commission to backend and fund managers and mutual funds companies, sri ram chits, uti, aditya birla etc..)
+
+
+Exit load (When you are selling the stock you need to pay the comission)
+
+
+Categories of MF:
+------------
+
+1. Equity
+2. Debt
+3. Hybrid
+
+1. Equity: (Completely into stocks either india or foreign)
+----------
+Large Cap
+Mid Cap
+Small Cap
+Micro Cap
+Based on the market share we will decide the companies into these categories.
+mostly india top 50 companies comes under larger cap.
+instead of investing in equity we can directly invest in index 50 because all the large cap companies will be there in index 50.
+
+
+2. Debt:  (Short term, very short term, govt bonds, debt bonds etc..)
+---------
+
+Ekkuva fluctations vadhu, risk takkuva undali, short term lo naaku money kavali (like from week to months) appudu Debt MFs choose cheskovali.
+
+
+3. Hybrid (Equity + Debt)
+-------------------------
+
+
+
+Index funds category
+---------------------
+Nifty50
+sensex
+nifty bank
+pharma index
+IT index
+Metal Index
+Reas etate index
+
+
+
+Dividend Types of MFs:
+----------------------
+
+1. Growth
+2. Dividened (Monthly some amount will return to your bank account, but NEVER choose this option as this will reduce your long term returns and benefits)
+
+
+
+Direct:
+-------
+I dont want to give any commission to any one. After expense ratio I want the entire returns, BEST to choose this one.
+
+
+
+Regular:
+--------
+Mediators will take more commissions on your returns, NOT Recommended
+
+
+
+Active MF vs Passive MF:
+------------------------
+no mangers, no calculations, no distribution, no maintinance (Passive mF) like investing in Index funds
+less expense ratio
+
+Active MFs:
+-----------
+Managers or Persons, portfolio can change based on the market conditions, More expense ratio
+
+
+
+ELSS Funds:
+-----------
+Lock-in Period and Tax benefits
+
+
+
+Summary:
+-------
+***Index and Growth Direct funds are the best to choose
+
+
+
+What's the recent thing you realised that was contradicting your earlier belief?
+I believe eralier that indian rituals are time consuming and waste of money, but recently I realised by watching some youtube channels about sanathana dharam and ayurvedic medicines that they have lot of scientific/spiritual reasons behind it. as they are all improving the human health in many ways as well good to environment and nature.
+
+
+If you come to know that tomorrow is your last day of this life, how would you live your last day?
+I will spend with my parents and family as they are the ones belong to me 
+
+If you can get a superpower, what power would you wish for? and what will you do with that power?
+
+I wish for one thing is ability to change the human beings mind so that I can change the humans to be honest, loyal and humanity to every others speices in the universe.
+
+
+Imagine you won a lottery of 1 crore rupees, how would you spend the money?
+
+I'll invest significant portion of the money, help my family and friends to achieve family finance, Improve my own skills and developement, and travel to the world to learn more things.
+
+
+If the average human life span is 40 years, how would you live your life differently?
+
+Prioritizing life goals, focus on relationships and experiences, living in the present and enjoy every moment
+
+
+
+Your senior has asked you to do something which you know is technically wrong. Also that person is the final approver, what would you do?
+
+
+I will try to understand the entire thing and analyze/cross-check once again. Still, I feel he is technically wrong, I'll discuss with him the concerns/future problems with this implementation. If he doesn't answer my questions/concerns, I'll talk my concerns to higher management.
+
+
+What's your opinion on exercise or yoga, and how often do you practice?
+
+After Covid-19, I realized Immunity plays a key role in maintaining good health. I began to practice pranayama breathing techniques, exercise including body stretches, and eating good food. I am to practice pranayama at least twice a week and if I find myself stressed will do more within that week.
+
+
+Your team lead is harassing you, but they are friends of your boss, what would you do in that situation?
+
+I will begin by carefully collecting proper evidence/incidents of harassment involving my team lead.  understand the company policies on this harassment, including the reporting process, and then speak to my boss privately (though they are friends as he might not be aware of this harassment), still, the issue is not resolved, will speak to HR or higher management.
+
+
+Your good friend colleague has asked for technical help but you have a lot of work to do, what would you do?
+
+Taking a few minutes to understand the actual problem and provide alternatives/suggestions to him to complete the task.
+
+
+
+You are a team leader, but your junior has done something technical wrong before the demo, what would you do?
+
+I believe experience is a collection of mistakes, I'll try to understand the technical error and listen to Junior perspective. If it can be fixed in the meantime we will fix it before the demo. after the demo completes take this as a lesson and learning opportunity to discuss with the entire team and prevent it in the future
+
+
+You are a senior developer, there's a trainee who has been asking questions and doubts for the task assigned to them, but with your skill you can easily do the task by the time you explain your junior, what will you do?
+
+
+I will divide the given task into multiple parts explain one part at a time to a trainee, and ask the trainee to complete it one by one so that they can have more clarity of what needs to be done. I can understand the trainee's ability to understand the problem and can suggest the required resources or documents to follow to learn. I'll review their work at the end of each day to see their progress.
