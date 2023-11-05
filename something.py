@@ -27,7 +27,7 @@
 # import random
 
 # # Set up AWS credentials
-# access_key_id = 'AKIA5VDK377LIBMRHOFI'
+# access_key_id = ''
 # secret_access_key = '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'
 # region = 'us-east-1'
 
