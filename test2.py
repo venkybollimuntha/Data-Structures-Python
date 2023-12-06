@@ -1,7 +1,7 @@
 import requests
 
-GITHUB_TOKEN = "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"
-GITHUB_ENTERPRISE_URL = "https://github.sciencelogic.com/api/v3"
+GITHUB_TOKEN = ""
+GITHUB_ENTERPRISE_URL = ""
 REPO = "SRE/test-vtest3"
 FILE_PATH = "README.md"
 
